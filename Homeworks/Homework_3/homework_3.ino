@@ -13,7 +13,7 @@ const int segSize = 7;
 const int noOfDigits = 10;
 
 const int sample = 500;
-const int EMFRange = 512;
+const int EMFRange = 64;
 const int buzzerDefaultIntervalDuration = 800;
 const int buzzerDefaultFrequency = 440;
 const int buzzerToneDuration = 50;
@@ -66,7 +66,7 @@ void loop() {
        averaging += averagingArray[i];                     
     }                                                               
     EMFValue = averaging / sample;    
-                                                                    
+    Serial.println(EMFValue);                                                                  
     if(EMFValue >= 1){
       EMFValue = constrain(EMFValue, 1, EMFRange);                                                   
       EMFValue = map(EMFValue, 1, EMFRange, 0, 9);                                         
