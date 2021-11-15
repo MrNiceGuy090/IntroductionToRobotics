@@ -13,7 +13,7 @@ const int segSize = 7;
 const int noOfDigits = 10;
 
 const int sample = 500;
-const int EMFRange = 64;
+const int EMFRange = 25c;
 const int buzzerDefaultIntervalDuration = 800;
 const int buzzerDefaultFrequency = 440;
 const int buzzerToneDuration = 50;
