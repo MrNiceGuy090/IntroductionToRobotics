@@ -83,7 +83,7 @@ void loop(){
   }
 }
 
-
+// checks and changes digit on Joystick X Axis Movement
 void checkJoystickXAxisMovement(const int pinX, const int minThreshold, const int maxThreshold, bool &joyMoved, int number[], int currentPos){
     xValue = analogRead(pinX);
     if( xValue < minThreshold && joyMoved == false){
@@ -109,6 +109,7 @@ void checkJoystickXAxisMovement(const int pinX, const int minThreshold, const in
     }
   }
   
+// checks and changes position on Joystick Y Axis Movement
 void checkJoystickYAxisMovement(const int pinY, const int minThreshold,const  int maxThreshold, bool &joyMoved, int &currentPos){
     yValue = analogRead(pinY);
     if( yValue < minThreshold && joyMoved == false){
@@ -134,10 +135,8 @@ void checkJoystickYAxisMovement(const int pinY, const int minThreshold,const  in
     }
 }
 
-
+// intrerupt function triggered by button press
 void buttonPressed(){
-  Serial.println(millis() - digitLockInDebounceTime);
-  
   if(millis() - digitLockInDebounceTime >= digitLockInDebounceInterval ){
     isLockedInOnDigit = !isLockedInOnDigit;
     for (int i = 0; i < numberLength; ++i )
@@ -162,6 +161,7 @@ void writeNumber(int number[],int numberLength, int displayPos, bool isSelected)
         }
       }
       int digit = digitArray[number[currentPos]];
+      // if the display has to show dp, increment digit (changes the last bit in his binary form, which coresponds to the dp being on/off)
       if(dpOn == true) {
         digit++;
       }
