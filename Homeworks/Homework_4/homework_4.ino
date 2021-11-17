@@ -55,6 +55,7 @@ int numberLength = 4;
 
 int digitLockInDebounceInterval = 200;
 long digitLockInDebounceTime = 0;
+const int multiplexingDelay = 5;
 
 void setup(){
   pinMode(dataPin, OUTPUT);
@@ -166,7 +167,7 @@ void writeNumber(int number[],int numberLength, int displayPos, bool isSelected)
         digit++;
       }
       writeRegister(digit);
-      delay(5);
+      delay(multiplexingDelay);
     }
 }
 
