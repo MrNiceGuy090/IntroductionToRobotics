@@ -8,8 +8,8 @@ const int pinY = A1;
 int xValue =0;
 int yValue =0;
 bool joyMoved = false;
-const int minThreshold=400;
-const int maxThreshold=600;
+const int minThreshold = 400;
+const int maxThreshold = 600;
 
 // 4 digit 7 segment display pins
 const int dataPin = 12; //DS
@@ -53,6 +53,9 @@ long dpBlinkingTime = 0;
 int ledNumber[4] = {1,2,3,4};
 int numberLength = 4;
 
+int digitLockInDebounceInterval = 200;
+long digitLockInDebounceTime = 0;
+
 void setup(){
   pinMode(dataPin, OUTPUT);
   pinMode(latchPin, OUTPUT);
@@ -62,7 +65,7 @@ void setup(){
     digitalWrite(displayDigits[i], LOW);
   }
   pinMode(pinSW,INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(pinSW), buttonPressed, FALLING);
+  attachInterrupt(digitalPinToInterrupt(pinSW), buttonPressed, RISING);
   if ( EEPROM.read(0) != 0xff )
     for (int i = 0; i < numberLength; ++i )
         ledNumber[i] = EEPROM.read(i);
@@ -133,10 +136,15 @@ void checkJoystickYAxisMovement(const int pinY, const int minThreshold,const  in
 
 
 void buttonPressed(){
-  isLockedInOnDigit = !isLockedInOnDigit;
+  Serial.println(millis() - digitLockInDebounceTime);
   
-  for (int i = 0; i < numberLength; ++i )
-     EEPROM.write ( i, ledNumber[i]);
+  if(millis() - digitLockInDebounceTime >= digitLockInDebounceInterval ){
+    isLockedInOnDigit = !isLockedInOnDigit;
+    for (int i = 0; i < numberLength; ++i )
+       EEPROM.write ( i, ledNumber[i]);
+    digitLockInDebounceTime = millis();
+  }
+  
 }
 
 void writeNumber(int number[],int numberLength, int displayPos, bool isSelected){
