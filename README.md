@@ -37,4 +37,14 @@ https://youtu.be/HnS-Day5f88
 #### Showcase video
 https://youtu.be/r4UEuIfKNG0
 
+## Homework 4 - Number editor on 4 digit 7-segment display
+
+#### Requirements
+  - Components: a joystick, a 4 digit 7-segment display, a 74hc595 shift register
+  - Task: First state: it uses a joystick axis to cycle through the 4 digits. Using the other axis does nothing. A blinking decimal point shows the current digit position. When pressing the button, it locks in on the selected digit and enters the second state. In this state, the decimal point stays always on, no longer blinking and the axis becomes unusable to cycle through the 4 digits. Instead, using the other axis, it can increment or decrement the number on the current digit. Pressing the button again returns to the previous state. Save the last value in eeprom and load it when starting arduino.
+#### Setup
+![Setup](Homeworks/Homework_4/docs/Setup.jpg)
+#### Showcase video
+https://youtu.be/VjpF6h9wZxM
+
 
